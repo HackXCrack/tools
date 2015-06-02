@@ -11,7 +11,6 @@ import (
 //sha3-512
 
 func raw_sha3512Handler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash := sha3.Sum512([]byte(body))
@@ -35,7 +34,6 @@ func sha3512Handler(w http.ResponseWriter, r *http.Request) {
 //sha3-256
 
 func raw_sha3Handler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash := sha3.Sum256([]byte(body))
@@ -71,7 +69,6 @@ func md5Handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func raw_md5Handler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash := md5.Sum([]byte(body))

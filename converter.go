@@ -10,7 +10,6 @@ import (
 //hex decode
 
 func raw_decodeHexHandler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash, err := hex.DecodeString(body)
@@ -41,7 +40,6 @@ func decodeHexHandler(w http.ResponseWriter, r *http.Request) {
 //hex encode
 
 func raw_encodeHexHandler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash := hex.EncodeToString([]byte(body))
@@ -65,7 +63,6 @@ func encodeHexHandler(w http.ResponseWriter, r *http.Request) {
 //base64  decode
 
 func raw_decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash, err := base64.StdEncoding.DecodeString(string(body))
@@ -96,7 +93,6 @@ func decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
 //base64 encode
 
 func raw_encodeBase64Handler(w http.ResponseWriter, r *http.Request) {
-  renderTemplate(w, "raw", "raw")
   body := r.FormValue("body")
 
   hash := base64.StdEncoding.EncodeToString([]byte(body))
