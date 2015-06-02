@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 type Page struct {
@@ -13,10 +14,21 @@ type Page struct {
 	Body  []byte
 }
 
+//show ip
+
+func ipHandler(w http.ResponseWriter, r *http.Request) {
+	templates.ExecuteTemplate(w, "ip.html", &Page{R: strings.Split(r.RemoteAddr,":")[0] })
+}
+
+func raw_ipHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, strings.Split(r.RemoteAddr,":")[0] )
+}
+
+//end show ip
+
 //pass gen
 
 func passgenHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "html", "PASS GENERATOR")
 	body := r.FormValue("body")
 
 	if body == "" {
@@ -70,13 +82,14 @@ func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
 			tmp = 94
 		}
 		pass[i] = reduced_ascii[(body[i]+rand_bytes2[i])%tmp]
+
 	}
 	fmt.Fprint(w, string(pass))
 }
 
 //end passgen
 
-var templates = template.Must(template.ParseFiles("html.html", "raw.html", "index.html"))
+var templates = template.Must(template.ParseFiles("html.html", "raw.html", "index.html", "ip.html"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, title string) {
 	err := templates.ExecuteTemplate(w, tmpl+".html", &Page{Title: title})
@@ -111,6 +124,8 @@ func main() {
 	http.HandleFunc("/raw_encodeHex", makeHandler(raw_encodeHexHandler))
 	http.HandleFunc("/decodeHex", makeHandler(decodeHexHandler))
 	http.HandleFunc("/raw_decodeHex", makeHandler(raw_decodeHexHandler))
+	http.HandleFunc("/ip", makeHandler(ipHandler))
+	http.HandleFunc("/raw_ip", makeHandler(raw_ipHandler))
 	
 
 	http.ListenAndServe(":1337", nil)
