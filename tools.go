@@ -32,7 +32,7 @@ func passgenHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("body")
 
 	if body == "" {
-		renderTemplate(w, "html", "PASS GENERATOR")
+		renderTemplate(w, "tool", "PASS GENERATOR")
 		return
 	}
 	rand_bytes := make([]byte, len(body))
