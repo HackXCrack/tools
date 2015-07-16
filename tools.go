@@ -88,8 +88,8 @@ func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 //end passgen
-
-var templates = template.Must(template.ParseFiles("html.html", "index.html", "ip.html"))
+var templates_path = "./templates/"
+var templates = template.Must(template.ParseFiles(templates_path + "html.html", templates_path + "index.html", templates_path + "ip.html"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, title string) {
 	err := templates.ExecuteTemplate(w, tmpl+".html", &Page{Title: title})
@@ -126,7 +126,6 @@ func main() {
 	http.HandleFunc("/raw_decodeHex", makeHandler(raw_decodeHexHandler))
 	http.HandleFunc("/ip", makeHandler(ipHandler))
 	http.HandleFunc("/raw_ip", makeHandler(raw_ipHandler))
-	
 
 	http.ListenAndServe(":1337", nil)
 }
