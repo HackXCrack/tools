@@ -21,7 +21,7 @@ func sha3512Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "SHA3 - 512")
+    renderTemplate(w, "tool", "SHA3 - 512")
     return
   }
   hash := sha3.Sum512([]byte(body))
@@ -44,7 +44,7 @@ func sha3Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "SHA3 - 256")
+    renderTemplate(w, "tool", "SHA3 - 256")
     return
   } 
   hash := sha3.Sum256([]byte(body))
@@ -60,7 +60,7 @@ func md5Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "MD5")
+    renderTemplate(w, "tool", "MD5")
     return
   }
   hash := md5.Sum([]byte(body))

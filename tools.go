@@ -89,7 +89,7 @@ func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
 
 //end passgen
 var templates_path = "./templates/"
-var templates = template.Must(template.ParseFiles(templates_path + "html.html", templates_path + "index.html", templates_path + "ip.html"))
+var templates = template.Must(template.ParseFiles(templates_path + "tool.html", templates_path + "index.html", templates_path + "ip.html"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, title string) {
 	err := templates.ExecuteTemplate(w, tmpl+".html", &Page{Title: title})

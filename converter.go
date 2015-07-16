@@ -24,7 +24,7 @@ func decodeHexHandler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "Hex decoder")
+    renderTemplate(w, "tool", "Hex decoder")
     return
   }
   hash, err := hex.DecodeString(body)
@@ -50,7 +50,7 @@ func encodeHexHandler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "Hex encoder")
+    renderTemplate(w, "tool", "Hex encoder")
     return
   }
   hash := hex.EncodeToString([]byte(body))
@@ -103,7 +103,7 @@ func encodeBase64Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "Base64 encoder")
+    renderTemplate(w, "tool", "Base64 encoder")
     return
   }
   hash := base64.StdEncoding.EncodeToString([]byte(body))
