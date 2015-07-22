@@ -28,9 +28,13 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 	}
 }
 
+
+func RootHandler(w http.ResponseWriter, r *http.Request) { 
+	templates.ExecuteTemplate(w, "index.html", nil) 
+}
+
 func main() {
-	Hello := func(w http.ResponseWriter, r *http.Request) { templates.ExecuteTemplate(w, "index.html", nil) }
-	http.HandleFunc("/", Hello)
+	http.HandleFunc("/", RootHandler)
 	http.HandleFunc("/md5", makeHandler(md5Handler))
 	http.HandleFunc("/raw_md5", makeHandler(raw_md5Handler))
 	http.HandleFunc("/sha3256", makeHandler(sha3Handler))
