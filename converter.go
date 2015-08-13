@@ -77,7 +77,7 @@ func decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "Base64 decoder")
+    renderTemplate(w, "tool", "Base64 decoder")
     return
   }
   hash, err := base64.StdEncoding.DecodeString(body)
