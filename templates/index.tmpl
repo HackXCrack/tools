@@ -1,16 +1,25 @@
 {{define "index"}}
+<!DOCTYPE html>
 <html>
-<ul>
-<li><a href="/md5">MD5</a></li>
-<li><a href="/sha3256">SHA3-256</a></li>
-<li><a href="/sha3512">SHA-512</a></li>
-<li><a href="/encodeBase64">ASCII --> Base64</a></li>
-<li><a href="/decodeBase64">Base64 --> ASCII</a></li>
-<li><a href="/passgen">Generador de passwords</a></li>
-<li><a href="/encodeHex">ASCII -->  HEX</a></li>
-<li><a href="/decodeHex">HEX --> ASCII</a></li>
-<li><a href="/ip">MUESTRA IP PÚBLICA</a></li>
-</ul>
-{{template "footer"}}
+	<head>
+		<title>Web-tools - index</title>
+	</head>
+	<body>
+		{{template "header"}}
+		<nav>
+			<ul>
+				<li><a href="/md5">MD5</a></li>
+				<li><a href="/sha3256">SHA3-256</a></li>
+				<li><a href="/sha3512">SHA-512</a></li>
+				<li><a href="/encodeBase64">ASCII --> Base64</a></li>
+				<li><a href="/decodeBase64">Base64 --> ASCII</a></li>
+				<li><a href="/passgen">Generador de passwords</a></li>
+				<li><a href="/encodeHex">ASCII -->  HEX</a></li>
+				<li><a href="/decodeHex">HEX --> ASCII</a></li>
+				<li><a href="/ip">MUESTRA IP PÚBLICA</a></li>
+			</ul>
+		</nav>
+		{{template "footer"}}
+	</body>
 </html>
 {{end}}

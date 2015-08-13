@@ -1,5 +1,12 @@
 {{define "ip"}}
+<!DOCTYPE html>
 <html>
-<h1>{{.R}}</h1>
+	<head>
+		<title>Web-tools - {{.Title}}</title>
+	</head>
+	<body>
+		{{template "header"}}
+		<p>{{.R}}</p>
+	</body>
 </html>
 {{end}}
