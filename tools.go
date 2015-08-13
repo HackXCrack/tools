@@ -12,10 +12,10 @@ type Page struct {
 }
 
 var templates_path = "./templates/"
-var templates = template.Must(template.ParseFiles(templates_path + "tool.html", templates_path + "index.html", templates_path + "ip.html"))
+var templates = template.Must(template.ParseGlob(templates_path + "*"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, title string) {
-	err := templates.ExecuteTemplate(w, tmpl+".html", &Page{Title: title})
+	err := templates.ExecuteTemplate(w, tmpl, &Page{Title: title})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -30,7 +30,7 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 
 
 func RootHandler(w http.ResponseWriter, r *http.Request) { 
-	templates.ExecuteTemplate(w, "index.html", nil) 
+	renderTemplate(w, "index", "index")
 }
 
 func main() {
