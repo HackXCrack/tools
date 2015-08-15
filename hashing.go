@@ -6,25 +6,25 @@ import (
 	"fmt"
 	"golang.org/x/crypto/sha3"
 	"net/http"
+	"regexp"
 )
 
 //sha3-512
 
-func raw_sha3512Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
-
-	hash := sha3.Sum512([]byte(body))
-	fmt.Fprintf(w, "%x", hash)
-}
-
 func sha3512Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("body")
+	hash := sha3.Sum512([]byte(body))
+	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
+
+	if matched {
+		fmt.Fprintf(w, "%x", hash)
+		return
+	}
 
 	if body == "" {
 		renderTemplate(w, "tool", "SHA3 - 512", "")
 		return
 	}
-	hash := sha3.Sum512([]byte(body))
 	s := hex.EncodeToString(hash[:])
 	renderTemplate(w, "tool", "SHA3 - 512", s)
 }
@@ -33,21 +33,20 @@ func sha3512Handler(w http.ResponseWriter, r *http.Request) {
 
 //sha3-256
 
-func raw_sha3Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
-
-	hash := sha3.Sum256([]byte(body))
-	fmt.Fprintf(w, "%x", hash)
-}
-
 func sha3Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("body")
+	hash := sha3.Sum256([]byte(body))
+	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
+
+	if matched {
+		fmt.Fprintf(w, "%x", hash)
+		return
+	}
 
 	if body == "" {
 		renderTemplate(w, "tool", "SHA3 - 256", "")
 		return
 	}
-	hash := sha3.Sum256([]byte(body))
 	s := hex.EncodeToString(hash[:])
 	renderTemplate(w, "tool", "SHA3 - 256", s)
 }
@@ -58,21 +57,23 @@ func sha3Handler(w http.ResponseWriter, r *http.Request) {
 
 func md5Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("body")
+	hash := md5.Sum([]byte(body))
+	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
+	//Show raw format
+	if matched {
+		fmt.Fprintf(w, "%x", hash)
+		return
+	}
+
+	//Normal format
 	if body == "" {
 		renderTemplate(w, "tool", "MD5", "")
 		return
 	}
-	hash := md5.Sum([]byte(body))
+
 	s := hex.EncodeToString(hash[:])
 	renderTemplate(w, "tool", "MD5", s)
-}
-
-func raw_md5Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
-
-	hash := md5.Sum([]byte(body))
-	fmt.Fprintf(w, "%x", hash)
 }
 
 ///end md5
