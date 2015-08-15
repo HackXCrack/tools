@@ -24,7 +24,7 @@ func decodeHexHandler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "tool", "Hex decoder")
+    renderTemplate(w, "tool", "Hex decoder", "")
     return
   }
   hash, err := hex.DecodeString(body)
@@ -32,7 +32,7 @@ func decodeHexHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Println("error:", err)
     return
   }
-  templates.Execute(w, &Page{Title: "Hex decoder", R: string(hash) })
+  renderTemplate(w, "tool", "Hex decoder", string(hash))
 }
 
 //end hex decode
@@ -50,11 +50,11 @@ func encodeHexHandler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "tool", "Hex encoder")
+    renderTemplate(w, "tool", "Hex encoder", "")
     return
   }
   hash := hex.EncodeToString([]byte(body))
-  templates.Execute(w, &Page{Title: "Hex encoder", R: hash})
+  renderTemplate(w, "tool", "Hex encoder", hash)
 }
 
 //end hex encode
@@ -77,7 +77,7 @@ func decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "html", "Base64 decoder")
+    renderTemplate(w, "tool", "Base64 decoder", "")
     return
   }
   hash, err := base64.StdEncoding.DecodeString(body)
@@ -85,7 +85,7 @@ func decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
     fmt.Println("error:", err)
     return
   }
-  templates.Execute(w, &Page{Title: "Base64 decoder", R: string(hash) })
+  renderTemplate(w, "tool", "Base64 decoder", string(hash))
 }
 
 //end base64 decode
@@ -103,11 +103,11 @@ func encodeBase64Handler(w http.ResponseWriter, r *http.Request) {
   body := r.FormValue("body")
 
   if body == "" {
-    renderTemplate(w, "tool", "Base64 encoder")
+    renderTemplate(w, "tool", "Base64 encoder", "")
     return
   }
   hash := base64.StdEncoding.EncodeToString([]byte(body))
-  templates.Execute(w, &Page{Title: "Base64 encoder", R: hash})
+  renderTemplate(w, "tool", "Base64 encoder", hash)
 }
 
 //end base64 encode

@@ -7,15 +7,15 @@ import (
 
 type Page struct {
 	Title string
-	R string
+	Request string
 	Body  []byte
 }
 
 var templates_path = "./templates/"
-var templates = template.Must(template.ParseFiles(templates_path + "tool.html", templates_path + "index.html", templates_path + "ip.html"))
+var templates = template.Must(template.ParseGlob(templates_path + "*"))
 
-func renderTemplate(w http.ResponseWriter, tmpl string, title string) {
-	err := templates.ExecuteTemplate(w, tmpl+".html", &Page{Title: title})
+func renderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
+	err := templates.ExecuteTemplate(w, tmpl, &Page{Title:t, Request:r})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -29,8 +29,8 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 }
 
 
-func RootHandler(w http.ResponseWriter, r *http.Request) { 
-	templates.ExecuteTemplate(w, "index.html", nil) 
+func RootHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "index", "index", "")
 }
 
 func main() {

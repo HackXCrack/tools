@@ -12,7 +12,7 @@ func passgenHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("body")
 
 	if body == "" {
-		renderTemplate(w, "tool", "PASS GENERATOR")
+		renderTemplate(w, "tool", "Pass Generator", "")
 		return
 	}
 	rand_bytes := make([]byte, len(body))
@@ -34,11 +34,11 @@ func passgenHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		pass[i] = reduced_ascii[(body[i]+rand_bytes2[i])%tmp]
 	}
-	templates.Execute(w, &Page{Title: "PASS GENERATOR", R: string(pass) })
+	renderTemplate(w, "tool", "Pass Generator", string(pass))
 }
 
 func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "raw", "raw")
+	renderTemplate(w, "raw", "raw", "")
 	body := r.FormValue("body")
 
 	if body == "" {return}
@@ -47,7 +47,7 @@ func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
 	rand.Read(rand_bytes)
 	rand_bytes2 := make([]byte, len(body))
 	rand.Read(rand_bytes2)
-										reduced_ascii := make([]byte, 94)
+	reduced_ascii := make([]byte, 94)
 	for i := 0; i < 94; i++ {
 		var tmp byte
 		tmp = byte('!' + i)

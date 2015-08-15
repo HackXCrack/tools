@@ -9,7 +9,7 @@ import (
 //show ip
 
 func ipHandler(w http.ResponseWriter, r *http.Request) {
-	templates.ExecuteTemplate(w, "ip.html", &Page{R: strings.Split(r.RemoteAddr,":")    [0] })
+	renderTemplate(w, "ip", "ip", strings.Split(r.RemoteAddr,":")[0])
 }
 
 func raw_ipHandler(w http.ResponseWriter, r *http.Request) {
