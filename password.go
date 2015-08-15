@@ -26,7 +26,7 @@ func passgenHandler(w http.ResponseWriter, r *http.Request) {
 		tmp = byte('!' + i)
 		reduced_ascii[i] = tmp
 	}
-		pass := make([]byte, len(body))
+	pass := make([]byte, len(body))
 	for i := 0; i < len(body); i++ {
 		tmp := rand_bytes[i] % 94
 		if tmp == 0 {
@@ -41,7 +41,9 @@ func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "raw", "raw", "")
 	body := r.FormValue("body")
 
-	if body == "" {return}
+	if body == "" {
+		return
+	}
 
 	rand_bytes := make([]byte, len(body))
 	rand.Read(rand_bytes)
@@ -65,4 +67,3 @@ func raw_passgenHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprint(w, string(pass))
 }
-

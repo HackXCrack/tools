@@ -6,16 +6,16 @@ import (
 )
 
 type Page struct {
-	Title string
+	Title   string
 	Request string
-	Body  []byte
+	Body    []byte
 }
 
 var templates_path = "./templates/"
 var templates = template.Must(template.ParseGlob(templates_path + "*"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
-	err := templates.ExecuteTemplate(w, tmpl, &Page{Title:t, Request:r})
+	err := templates.ExecuteTemplate(w, tmpl, &Page{Title: t, Request: r})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -27,7 +27,6 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
 		return
 	}
 }
-
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index", "index", "")
