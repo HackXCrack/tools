@@ -43,6 +43,7 @@ func main() {
 	http.HandleFunc("/encodeHex/", makeHandler(encodeHexHandler))
 	http.HandleFunc("/decodeHex/", makeHandler(decodeHexHandler))
 	http.HandleFunc("/ip/", makeHandler(ipHandler))
+	http.HandleFunc("/checkport/", makeHandler(openportHandler))
 
 	http.ListenAndServe(":1337", nil)
 }
