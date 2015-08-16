@@ -38,15 +38,15 @@ func openportHandler(w http.ResponseWriter, r *http.Request) {
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 	//Show raw format
 	if matched {
-    if err != nil {
-      fmt.Fprint(w, "Close") 
-    } else {
-		  fmt.Fprint(w, "Open")
-    }
+		if err != nil {
+			fmt.Fprint(w, "Close")
+		} else {
+			fmt.Fprint(w, "Open")
+		}
 		return
 	}
-	
-  if err != nil {
+
+	if err != nil {
 		renderTemplate(w, "tool", "Check open port", "Close")
 		return
 	}
