@@ -10,7 +10,7 @@ import (
 //pass gen
 
 func passgenHandler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
 	//Show raw format

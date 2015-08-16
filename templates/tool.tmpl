@@ -7,7 +7,7 @@
 	<body>
 		{{template "header"}}
 		<form action="" method="GET">
-			<div><input name="body" value="{{printf "%s" .Body}}"></div>
+			<div><input name="p" value="{{printf "%s" .Body}}"></div>
 			<div><input type="submit" value="{{.Title}}"></div>
 		</form>
 		<h1>{{.Request}}</h1>

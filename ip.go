@@ -27,7 +27,7 @@ func ipHandler(w http.ResponseWriter, r *http.Request) {
 //check port
 
 func openportHandler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	if body == "" {
 		renderTemplate(w, "tool", "Check open port", "")
 		return
@@ -35,14 +35,19 @@ func openportHandler(w http.ResponseWriter, r *http.Request) {
 
 	ip := strings.Split(r.RemoteAddr, ":")[0]
 	_, err := net.Dial("tcp", ip+":"+body)
-	if err != nil {
-		renderTemplate(w, "tool", "Check open port", "Close")
-		return
-	}
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 	//Show raw format
 	if matched {
-		fmt.Fprint(w, "Open")
+    if err != nil {
+      fmt.Fprint(w, "Close") 
+    } else {
+		  fmt.Fprint(w, "Open")
+    }
+		return
+	}
+	
+  if err != nil {
+		renderTemplate(w, "tool", "Check open port", "Close")
 		return
 	}
 

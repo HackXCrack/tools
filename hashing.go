@@ -12,7 +12,7 @@ import (
 //sha3-512
 
 func sha3512Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash := sha3.Sum512([]byte(body))
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
@@ -34,7 +34,7 @@ func sha3512Handler(w http.ResponseWriter, r *http.Request) {
 //sha3-256
 
 func sha3Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash := sha3.Sum256([]byte(body))
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
@@ -56,7 +56,7 @@ func sha3Handler(w http.ResponseWriter, r *http.Request) {
 //md5
 
 func md5Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash := md5.Sum([]byte(body))
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 

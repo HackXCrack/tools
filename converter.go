@@ -11,7 +11,7 @@ import (
 //hex decode
 
 func decodeHexHandler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash, err := hex.DecodeString(body)
 	if err != nil {
 		//fmt.Println("error:", err)
@@ -39,7 +39,7 @@ func decodeHexHandler(w http.ResponseWriter, r *http.Request) {
 //hex encode
 
 func encodeHexHandler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash := hex.EncodeToString([]byte(body))
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
@@ -61,7 +61,7 @@ func encodeHexHandler(w http.ResponseWriter, r *http.Request) {
 //base64  decode
 
 func decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash, err := base64.StdEncoding.DecodeString(body)
 	if err != nil {
 		//se debería mostrar el error al user???
@@ -89,7 +89,7 @@ func decodeBase64Handler(w http.ResponseWriter, r *http.Request) {
 //base64 encode
 
 func encodeBase64Handler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("body")
+	body := r.FormValue("p")
 	hash := base64.StdEncoding.EncodeToString([]byte(body))
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
