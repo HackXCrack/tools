@@ -5,12 +5,12 @@
 		<title>Web-tools - {{.Title}}</title>
 	</head>
 	<body>
-		{{template "header"}}
-		<form action="" method="GET">
-			<div><input name="p" value="{{printf "%s" .Body}}"></div>
-			<div><input type="submit" value="{{.Title}}"></div>
+		{{template "header" .Title}}
+		<form method="get">
+			<input type="text" name="p">
+			<input type="submit" value="{{.Title}}">
 		</form>
-		<h1>{{.Request}}</h1>
+		<p>{{.Request}}</p>
 	</body>
 </html>
 {{end}}

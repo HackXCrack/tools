@@ -5,7 +5,7 @@
 		<title>Web-tools - {{.Title}}</title>
 	</head>
 	<body>
-		{{template "header"}}
+		{{template "header" .Title}}
 		<p>{{.Request}}</p>
 	</body>
 </html>
