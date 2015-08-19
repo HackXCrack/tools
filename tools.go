@@ -34,16 +34,16 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", RootHandler)
-	http.HandleFunc("/md5/", makeHandler(md5Handler))
-	http.HandleFunc("/sha3256/", makeHandler(sha3Handler))
-	http.HandleFunc("/sha3512/", makeHandler(sha3512Handler))
-	http.HandleFunc("/encodeBase64/", makeHandler(encodeBase64Handler))
-	http.HandleFunc("/decodeBase64/", makeHandler(decodeBase64Handler))
-	http.HandleFunc("/passgen/", makeHandler(passgenHandler))
-	http.HandleFunc("/encodeHex/", makeHandler(encodeHexHandler))
-	http.HandleFunc("/decodeHex/", makeHandler(decodeHexHandler))
-	http.HandleFunc("/ip/", makeHandler(ipHandler))
-	http.HandleFunc("/checkport/", makeHandler(openportHandler))
+	http.HandleFunc("/md5/", md5Handler)
+	http.HandleFunc("/sha3256/", sha3Handler)
+	http.HandleFunc("/sha3512/", sha3512Handler)
+	http.HandleFunc("/encodeBase64/", encodeBase64Handler)
+	http.HandleFunc("/decodeBase64/", decodeBase64Handler)
+	http.HandleFunc("/passgen/", passgenHandler)
+	http.HandleFunc("/encodeHex/", encodeHexHandler)
+	http.HandleFunc("/decodeHex/", decodeHexHandler)
+	http.HandleFunc("/ip/", ipHandler)
+	http.HandleFunc("/checkport/", openportHandler)
 
 	http.ListenAndServe(":1337", nil)
 }
