@@ -8,16 +8,32 @@
 		{{template "header"}}
 		<nav>
 			<ul>
-				<li><a href="/md5">MD5</a></li>
-				<li><a href="/sha3256">SHA3-256</a></li>
-				<li><a href="/sha3512">SHA3-512</a></li>
-				<li><a href="/encodeBase64">ASCII --> Base64</a></li>
-				<li><a href="/decodeBase64">Base64 --> ASCII</a></li>
-				<li><a href="/passgen">Generador de passwords</a></li>
-				<li><a href="/encodeHex">ASCII -->  HEX</a></li>
-				<li><a href="/decodeHex">HEX --> ASCII</a></li>
-				<li><a href="/ip">MUESTRA IP PÚBLICA</a></li>
-        <li><a href="/checkport">Comprueba si un puerto esta abierto</a></li>
+        <li><a href="#">Cripto</a>
+        <ul>
+          <li><a href="/md5">MD5</a></li>
+				  <li><a href="/sha3256">SHA3-256</a></li>
+				  <li><a href="/sha3512">SHA3-512</a></li>
+        </ul>
+        </li>
+        <li><a href="#">Codificacion</a>
+        <ul>
+				  <li><a href="/encodeBase64">ASCII --> Base64</a></li>
+				  <li><a href="/decodeBase64">Base64 --> ASCII</a></li>
+				  <li><a href="/encodeHex">ASCII -->  HEX</a></li>
+				  <li><a href="/decodeHex">HEX --> ASCII</a></li>
+        </ul>
+        </li>
+        <li><a href="#">Networking</a>
+        <ul>
+  				<li><a href="/ip">MUESTRA IP PÚBLICA</a></li>
+          <li><a href="/checkport">Comprueba si un puerto esta abierto</a></li>
+        </ul>
+        </li>
+        <li><a href="#">Misc</a>
+        <ul>
+  				<li><a href="/passgen">Generador de passwords</a></li>
+        </ul>
+        </li>
 			</ul>
 		</nav>
 		{{template "footer"}}
