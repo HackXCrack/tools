@@ -21,13 +21,6 @@ func renderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
 	}
 }
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		fn(w, r)
-		return
-	}
-}
-
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index", "index", "")
 }
