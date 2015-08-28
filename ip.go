@@ -10,46 +10,64 @@ import (
 
 //show ip
 
+func ip(w http.ResponseWriter, ip_s string) {
+	renderTemplate(w, "ip", "ip", ip_s)
+}
+
+func raw_ip(w http.ResponseWriter, ip_s string) {
+	fmt.Fprint(w, ip_s)
+}
+
 func ipHandler(w http.ResponseWriter, r *http.Request) {
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
+	ip_s := strings.Split(r.RemoteAddr, ":")[0]
 
-	//Show raw format
-	if matched {
-		fmt.Fprint(w, strings.Split(r.RemoteAddr, ":")[0])
-		return
+	if matched { //Show raw format
+		raw_ip(w, ip_s)
+	} else {
+		ip(w, ip_s)
 	}
-
-	renderTemplate(w, "ip", "ip", strings.Split(r.RemoteAddr, ":")[0])
 }
 
 //end show ip
 
 //check port
 
-func openportHandler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("p")
-	if body == "" {
+func openport(w http.ResponseWriter, request string) {
+	if strings.Split(request, ":")[1] == "" {
 		renderTemplate(w, "tool", "Check open port", "")
 		return
 	}
-
-	ip := strings.Split(r.RemoteAddr, ":")[0]
-	_, err := net.Dial("tcp", ip+":"+body)
-	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
-	//Show raw format
-	if matched {
-		if err != nil {
-			fmt.Fprint(w, "Close")
-		} else {
-			fmt.Fprint(w, "Open")
-		}
-		return
-	}
-
+	_, err := net.Dial("tcp", request)
 	if err != nil {
-		renderTemplate(w, "tool", "Check open port", "Close")
+		renderTemplate(w, "tool", "Check open port", "Cerrado")
+	} else {
+		renderTemplate(w, "tool", "Check open port", "Abierto")
+	}
+}
+
+func raw_openport(w http.ResponseWriter, request string) {
+	if strings.Split(request, ":")[1] == "" {
 		return
 	}
-
-	renderTemplate(w, "tool", "Check open port", "Open")
+	_, err := net.Dial("tcp", request)
+	if err != nil {
+		fmt.Fprint(w, "Cerrado")
+	} else {
+		fmt.Fprint(w, "Abierto")
+	}
 }
+
+func openportHandler(w http.ResponseWriter, r *http.Request) {
+	ip := strings.Split(r.RemoteAddr, ":")[0]
+	body := ip + ":" + r.FormValue("p")
+	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
+
+	if matched { //Show raw format
+		raw_openport(w, body)
+	} else {
+		openport(w, body)
+	}
+}
+
+//end check port
