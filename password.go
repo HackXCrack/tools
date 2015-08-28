@@ -9,23 +9,10 @@ import (
 
 //pass gen
 
-func passgenHandler(w http.ResponseWriter, r *http.Request) {
-	body := r.FormValue("p")
-	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
-
-	//Show raw format
-	if matched && body == "" {
-		return
-	}
-
-	if body == "" {
-		renderTemplate(w, "tool", "Pass Generator", "")
-		return
-	}
-
-	rand_bytes := make([]byte, len(body))
+func doPass(seed string) string {
+	rand_bytes := make([]byte, len(seed))
 	rand.Read(rand_bytes)
-	rand_bytes2 := make([]byte, len(body))
+	rand_bytes2 := make([]byte, len(seed))
 	rand.Read(rand_bytes2)
 	reduced_ascii := make([]byte, 94)
 	for i := 0; i < 94; i++ {
@@ -34,19 +21,39 @@ func passgenHandler(w http.ResponseWriter, r *http.Request) {
 		reduced_ascii[i] = tmp
 	}
 
-	pass := make([]byte, len(body))
-	for i := 0; i < len(body); i++ {
+	pass := make([]byte, len(seed))
+	for i := 0; i < len(seed); i++ {
 		tmp := rand_bytes[i] % 94
 		if tmp == 0 {
 			tmp = 94
 		}
-		pass[i] = reduced_ascii[(body[i]+rand_bytes2[i])%tmp]
+		pass[i] = reduced_ascii[(seed[i]+rand_bytes2[i])%tmp]
 	}
+	return string(pass)
+}
 
-	if matched {
-		fmt.Fprint(w, string(pass))
+func passGen(w http.ResponseWriter, request string) {
+	if request == "" {
+		renderTemplate(w, "tool", "Pass Generator", "")
 		return
 	}
+	renderTemplate(w, "tool", "Pass Generator", doPass(request))
+}
 
-	renderTemplate(w, "tool", "Pass Generator", string(pass))
+func raw_passGen(w http.ResponseWriter, request string) {
+	if request == "" {
+		return
+	}
+	fmt.Fprint(w, doPass(request))
+}
+
+func passgenHandler(w http.ResponseWriter, r *http.Request) {
+	body := r.FormValue("p")
+	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
+
+	if matched { //Show raw format
+		raw_passGen(w, body)
+	} else {
+		passGen(w, body)
+	}
 }
