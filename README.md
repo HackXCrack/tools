@@ -7,12 +7,13 @@ herramientas varias nivel web
 ### Hashing
 - md5
 - sha3-256
-- sha512
+- sha3-512
 
 ### Conversores
 - ASCII a base 64
 - ASCII a hexadecimal
 - Hexadecimal a ASCII
+- Base 64 a ASCII
 
 ### Otras
 - Generador de password
