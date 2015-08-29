@@ -34,6 +34,7 @@ func RawDecodeHex(w http.ResponseWriter, request string) {
 	}
 	fmt.Fprint(w, string(hash))
 }
+
 //DecodeHexHandler decide el formato
 func DecodeHexHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")

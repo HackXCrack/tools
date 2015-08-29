@@ -12,7 +12,7 @@ import (
 
 //Ip muestra la ip en formato html
 func Ip(w http.ResponseWriter, ip_s string) {
-	RenderTemplate(w, "ip", "ip", ip_s)
+	RenderTemplate(w, "ip", "IP", ip_s)
 }
 
 //RawIp muestra la ip en formato raw
