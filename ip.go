@@ -10,11 +10,11 @@ import (
 
 //show ip
 
-func ip(w http.ResponseWriter, ip_s string) {
+func Ip(w http.ResponseWriter, ip_s string) {
 	renderTemplate(w, "ip", "ip", ip_s)
 }
 
-func raw_ip(w http.ResponseWriter, ip_s string) {
+func Raw_ip(w http.ResponseWriter, ip_s string) {
 	fmt.Fprint(w, ip_s)
 }
 
@@ -23,9 +23,9 @@ func ipHandler(w http.ResponseWriter, r *http.Request) {
 	ip_s := strings.Split(r.RemoteAddr, ":")[0]
 
 	if matched { //Show raw format
-		raw_ip(w, ip_s)
+		Raw_ip(w, ip_s)
 	} else {
-		ip(w, ip_s)
+		Ip(w, ip_s)
 	}
 }
 

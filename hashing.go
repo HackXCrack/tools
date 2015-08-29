@@ -71,7 +71,7 @@ func sha3Handler(w http.ResponseWriter, r *http.Request) {
 
 //md5
 
-func md5_f(w http.ResponseWriter, request string) { 
+func md5_f(w http.ResponseWriter, request string) {
 	if request == "" {
 		renderTemplate(w, "tool", "MD5", "")
 		return
@@ -90,9 +90,9 @@ func md5Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
-	if matched {	//Show raw format
+	if matched { //Show raw format
 		raw_md5(w, body)
-	} else { 
+	} else {
 		md5_f(w, body)
 	}
 }
