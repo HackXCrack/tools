@@ -10,14 +10,17 @@ import (
 
 //show ip
 
+//Ip muestra la ip en formato html
 func Ip(w http.ResponseWriter, ip_s string) {
 	RenderTemplate(w, "ip", "ip", ip_s)
 }
 
+//RawIp muestra la ip en formato raw
 func RawIp(w http.ResponseWriter, ip_s string) {
 	fmt.Fprint(w, ip_s)
 }
 
+//IpHandler decide el formato
 func IpHandler(w http.ResponseWriter, r *http.Request) {
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 	ip_s := strings.Split(r.RemoteAddr, ":")[0]
@@ -33,6 +36,7 @@ func IpHandler(w http.ResponseWriter, r *http.Request) {
 
 //check port
 
+//Openport muestra si el puerto esta abierto o cerrado en formato html
 func Openport(w http.ResponseWriter, request string) {
 	if strings.Split(request, ":")[1] == "" {
 		RenderTemplate(w, "tool", "Check open port", "")
@@ -46,6 +50,7 @@ func Openport(w http.ResponseWriter, request string) {
 	}
 }
 
+//RawOpenport muestra si el puerto esta abierto o cerrado en formato raw
 func RawOpenport(w http.ResponseWriter, request string) {
 	if strings.Split(request, ":")[1] == "" {
 		return
@@ -58,6 +63,7 @@ func RawOpenport(w http.ResponseWriter, request string) {
 	}
 }
 
+//OpenportHandler decide el formato
 func OpenportHandler(w http.ResponseWriter, r *http.Request) {
 	ip := strings.Split(r.RemoteAddr, ":")[0]
 	body := ip + ":" + r.FormValue("p")

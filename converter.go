@@ -10,6 +10,7 @@ import (
 
 //hex decode
 
+//DecodeHex muestra el resultado en formato html
 func DecodeHex(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "Hex decoder", "")
@@ -24,6 +25,7 @@ func DecodeHex(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "Hex decoder", string(hash))
 }
 
+//RawDecodeHex muestra el resultado en formato raw
 func RawDecodeHex(w http.ResponseWriter, request string) {
 	hash, err := hex.DecodeString(request)
 	if err != nil {
@@ -32,7 +34,7 @@ func RawDecodeHex(w http.ResponseWriter, request string) {
 	}
 	fmt.Fprint(w, string(hash))
 }
-
+//DecodeHexHandler decide el formato
 func DecodeHexHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 
@@ -49,6 +51,7 @@ func DecodeHexHandler(w http.ResponseWriter, r *http.Request) {
 
 //hex encode
 
+//EncodeHex muestra el resultado en formato html
 func EncodeHex(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "Hex encoder", "")
@@ -58,11 +61,13 @@ func EncodeHex(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "Hex encoder", hash)
 }
 
+//RawEncodeHex muestra el resultado en formato raw
 func RawEncodeHex(w http.ResponseWriter, request string) {
 	hash := hex.EncodeToString([]byte(request))
 	fmt.Fprint(w, hash)
 }
 
+//EncodeHexHandler decide el formato
 func EncodeHexHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
@@ -78,12 +83,12 @@ func EncodeHexHandler(w http.ResponseWriter, r *http.Request) {
 
 //base64  decode
 
+//DecodeBase64 muestra el resultado en formato html
 func DecodeBase64(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "Base64 decoder", "")
 		return
 	}
-
 	hash, err := base64.StdEncoding.DecodeString(request)
 	if err != nil {
 		//se debería mostrar el error al user???
@@ -92,6 +97,7 @@ func DecodeBase64(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "Base64 decoder", string(hash))
 }
 
+//RawDecodeBase64 muestra el resultado en formato raw
 func RawDecodeBase64(w http.ResponseWriter, request string) {
 	hash, err := base64.StdEncoding.DecodeString(request)
 	if err != nil {
@@ -101,6 +107,7 @@ func RawDecodeBase64(w http.ResponseWriter, request string) {
 	fmt.Fprint(w, string(hash))
 }
 
+//DecodeBase64Handler decide el formato
 func DecodeBase64Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
@@ -116,6 +123,7 @@ func DecodeBase64Handler(w http.ResponseWriter, r *http.Request) {
 
 //base64 encode
 
+//EncodeBase64 muestra el resultado en formato html
 func EncodeBase64(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "Base64 encoder", "")
@@ -127,11 +135,13 @@ func EncodeBase64(w http.ResponseWriter, request string) {
 
 }
 
+//RawEncodeBase64 muestra el resultado en formato raw
 func RawEncodeBase64(w http.ResponseWriter, request string) {
 	hash := base64.StdEncoding.EncodeToString([]byte(request))
 	fmt.Fprint(w, hash)
 }
 
+//EncodeBase64Handler decide el formato
 func EncodeBase64Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)

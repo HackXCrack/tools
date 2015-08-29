@@ -11,6 +11,7 @@ import (
 
 //sha3-512
 
+//Sha3512 muestra el hash en formato html
 func Sha3512(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "SHA3 - 512", "")
@@ -21,11 +22,13 @@ func Sha3512(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "SHA3 - 512", s)
 }
 
+//RawSha3512 muestra el hash en formato raw
 func RawSha3512(w http.ResponseWriter, request string) {
 	hash := sha3.Sum512([]byte(request))
 	fmt.Fprintf(w, "%x", hash)
 }
 
+//Sha3512Handler decide el formato en que mostrar el hash
 func Sha3512Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
@@ -41,6 +44,7 @@ func Sha3512Handler(w http.ResponseWriter, r *http.Request) {
 
 //sha3-256
 
+//Sha3 muestra el hash en formato html
 func Sha3(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "SHA3 - 256", "")
@@ -51,11 +55,13 @@ func Sha3(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "SHA3 - 256", s)
 }
 
+//RawSha3 muestra el hash en formato raw
 func RawSha3(w http.ResponseWriter, request string) {
 	hash := sha3.Sum256([]byte(request))
 	fmt.Fprintf(w, "%x", hash)
 }
 
+//Sha3Handler decide el formato en que mostrar el hash
 func Sha3Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
@@ -71,6 +77,7 @@ func Sha3Handler(w http.ResponseWriter, r *http.Request) {
 
 //md5
 
+//Md5 muestra el hash en formato html
 func Md5(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "MD5", "")
@@ -81,11 +88,13 @@ func Md5(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "MD5", s)
 }
 
+//RawMd5 muestra el hash en formato raw
 func RawMd5(w http.ResponseWriter, request string) {
 	hash := md5.Sum([]byte(request))
 	fmt.Fprintf(w, "%x", hash)
 }
 
+//Md5Handler decide el formato en que mostrar el hash
 func Md5Handler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)

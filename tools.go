@@ -2,20 +2,25 @@ package main
 
 import (
 	"html/template"
-	"net/http"
 	"log"
+	"net/http"
 )
 
+//Puerto donde escuchar
+const PORT = "1337"
+
+//Page contiene datos de la página
 type Page struct {
 	Title   string
 	Request string
 	Body    []byte
 }
 
-var templates_path = "./templates/"
-var templates = template.Must(template.ParseGlob(templates_path + "*"))
-const PORT = "1337"
+const templatesPath = "./templates/"
 
+var templates = template.Must(template.ParseGlob(templatesPath + "*"))
+
+//RenderTemplate renderiza la template con el texto adecuado
 func RenderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
 	err := templates.ExecuteTemplate(w, tmpl, &Page{Title: t, Request: r})
 	if err != nil {
@@ -24,6 +29,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
 	}
 }
 
+// RootHandler muestra el index
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	RenderTemplate(w, "index", "index", "")
 }
@@ -41,7 +47,7 @@ func main() {
 	http.HandleFunc("/ip/", IpHandler)
 	http.HandleFunc("/checkport/", OpenportHandler)
 
-	log.Print("Escuchando en el puerto "+PORT)
+	log.Print("Escuchando en el puerto " + PORT)
 	err := http.ListenAndServe(":"+PORT, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)

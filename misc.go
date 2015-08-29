@@ -7,31 +7,33 @@ import (
 	"regexp"
 )
 
-//pass gen
+//PassGen
 
+//DoPass genera y devuelve la password pseudo-aleatoria
 func DoPass(seed string) string {
-	rand_bytes := make([]byte, len(seed))
-	rand.Read(rand_bytes)
-	rand_bytes2 := make([]byte, len(seed))
-	rand.Read(rand_bytes2)
-	reduced_ascii := make([]byte, 94)
+	randBytes := make([]byte, len(seed))
+	rand.Read(randBytes)
+	randBytes2 := make([]byte, len(seed))
+	rand.Read(randBytes2)
+	reducedASCII := make([]byte, 94)
 	for i := 0; i < 94; i++ {
 		var tmp byte
 		tmp = byte('!' + i)
-		reduced_ascii[i] = tmp
+		reducedASCII[i] = tmp
 	}
 
 	pass := make([]byte, len(seed))
 	for i := 0; i < len(seed); i++ {
-		tmp := rand_bytes[i] % 94
+		tmp := randBytes[i] % 94
 		if tmp == 0 {
 			tmp = 94
 		}
-		pass[i] = reduced_ascii[(seed[i]+rand_bytes2[i])%tmp]
+		pass[i] = reducedASCII[(seed[i]+randBytes2[i])%tmp]
 	}
 	return string(pass)
 }
 
+//PassGen genera la password en formato normal
 func PassGen(w http.ResponseWriter, request string) {
 	if request == "" {
 		RenderTemplate(w, "tool", "Pass Generator", "")
@@ -40,6 +42,7 @@ func PassGen(w http.ResponseWriter, request string) {
 	RenderTemplate(w, "tool", "Pass Generator", DoPass(request))
 }
 
+//RawPassGen genera la password en formato raw
 func RawPassGen(w http.ResponseWriter, request string) {
 	if request == "" {
 		return
@@ -47,6 +50,7 @@ func RawPassGen(w http.ResponseWriter, request string) {
 	fmt.Fprint(w, DoPass(request))
 }
 
+//PassGenHandler decide el formato en que se mostrara la password
 func PassGenHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
@@ -57,3 +61,5 @@ func PassGenHandler(w http.ResponseWriter, r *http.Request) {
 		PassGen(w, body)
 	}
 }
+
+//end PassGen
