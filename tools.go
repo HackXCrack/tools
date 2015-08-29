@@ -18,7 +18,7 @@ type Page struct {
 
 const templatesPath = "./templates/"
 
-var templates = template.Must(template.ParseGlob(templatesPath + "*"))
+var templates = template.Must(template.ParseGlob(templatesPath + "[a-z]*"))
 
 //RenderTemplate renderiza la template con el texto adecuado
 func RenderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
