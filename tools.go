@@ -16,7 +16,7 @@ var templates_path = "./templates/"
 var templates = template.Must(template.ParseGlob(templates_path + "*"))
 const PORT = "1337"
 
-func renderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
 	err := templates.ExecuteTemplate(w, tmpl, &Page{Title: t, Request: r})
 	if err != nil {
 		log.Print("ExecuteTemplate: ", err)
@@ -25,21 +25,21 @@ func renderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "index", "index", "")
+	RenderTemplate(w, "index", "index", "")
 }
 
 func main() {
 	http.HandleFunc("/", RootHandler)
-	http.HandleFunc("/md5/", md5Handler)
-	http.HandleFunc("/sha3256/", sha3Handler)
-	http.HandleFunc("/sha3512/", sha3512Handler)
-	http.HandleFunc("/encodeBase64/", encodeBase64Handler)
-	http.HandleFunc("/decodeBase64/", decodeBase64Handler)
-	http.HandleFunc("/passgen/", passgenHandler)
-	http.HandleFunc("/encodeHex/", encodeHexHandler)
-	http.HandleFunc("/decodeHex/", decodeHexHandler)
-	http.HandleFunc("/ip/", ipHandler)
-	http.HandleFunc("/checkport/", openportHandler)
+	http.HandleFunc("/md5/", Md5Handler)
+	http.HandleFunc("/sha3256/", Sha3Handler)
+	http.HandleFunc("/sha3512/", Sha3512Handler)
+	http.HandleFunc("/encodeBase64/", EncodeBase64Handler)
+	http.HandleFunc("/decodeBase64/", DecodeBase64Handler)
+	http.HandleFunc("/passgen/", PassGenHandler)
+	http.HandleFunc("/encodeHex/", EncodeHexHandler)
+	http.HandleFunc("/decodeHex/", DecodeHexHandler)
+	http.HandleFunc("/ip/", IpHandler)
+	http.HandleFunc("/checkport/", OpenportHandler)
 
 	log.Print("Escuchando en el puerto "+PORT)
 	err := http.ListenAndServe(":"+PORT, nil)

@@ -9,7 +9,7 @@ import (
 
 //pass gen
 
-func doPass(seed string) string {
+func DoPass(seed string) string {
 	rand_bytes := make([]byte, len(seed))
 	rand.Read(rand_bytes)
 	rand_bytes2 := make([]byte, len(seed))
@@ -32,28 +32,28 @@ func doPass(seed string) string {
 	return string(pass)
 }
 
-func passGen(w http.ResponseWriter, request string) {
+func PassGen(w http.ResponseWriter, request string) {
 	if request == "" {
-		renderTemplate(w, "tool", "Pass Generator", "")
+		RenderTemplate(w, "tool", "Pass Generator", "")
 		return
 	}
-	renderTemplate(w, "tool", "Pass Generator", doPass(request))
+	RenderTemplate(w, "tool", "Pass Generator", DoPass(request))
 }
 
-func raw_passGen(w http.ResponseWriter, request string) {
+func RawPassGen(w http.ResponseWriter, request string) {
 	if request == "" {
 		return
 	}
-	fmt.Fprint(w, doPass(request))
+	fmt.Fprint(w, DoPass(request))
 }
 
-func passgenHandler(w http.ResponseWriter, r *http.Request) {
+func PassGenHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("p")
 	matched, _ := regexp.MatchString("^*/raw", r.URL.Path)
 
 	if matched { //Show raw format
-		raw_passGen(w, body)
+		RawPassGen(w, body)
 	} else {
-		passGen(w, body)
+		PassGen(w, body)
 	}
 }
