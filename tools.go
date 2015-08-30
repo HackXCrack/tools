@@ -36,6 +36,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", RootHandler)
+	http.Handle("/resources/", http.StripPrefix("/resources/", http.FileServer(http.Dir("resources"))))
 	http.HandleFunc("/md5/", Md5Handler)
 	http.HandleFunc("/sha3256/", Sha3Handler)
 	http.HandleFunc("/sha3512/", Sha3512Handler)
