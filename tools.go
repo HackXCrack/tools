@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 //Evitar listar el contenido de la carpeta
@@ -61,7 +62,13 @@ func main() {
 	http.HandleFunc("/checkport/", OpenportHandler)
 
 	log.Print("Escuchando en el puerto " + PORT)
-	err := http.ListenAndServe(":"+PORT, nil)
+
+	s := &http.Server{
+		Addr:        ":" + PORT,
+		Handler:     http.DefaultServeMux,
+		ReadTimeout: 7 * time.Second,
+	}
+	err := s.ListenAndServe()
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
