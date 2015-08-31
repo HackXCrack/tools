@@ -4,12 +4,11 @@
 	<head>
 		<title>Web-tools - {{.Title}}</title>
 	</head>
-	<center>
-    <body>
+	<body>
 		  {{template "header" .Title}}
-      <hr>
-		  <p><h1>{{.Request}}</h1></p>
+		  <hr>
+		  <p>{{.Request}}</p>
+		  {{template "footer"}}
 	  </body>
-  <center>
 </html>
 {{end}}
