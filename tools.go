@@ -4,20 +4,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 )
-
-//Evitar listar el contenido de la carpeta
-func noDirListing(h http.Handler) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if strings.HasSuffix(r.URL.Path, "/") {
-			http.NotFound(w, r)
-			return
-		}
-		h.ServeHTTP(w, r)
-	})
-}
 
 //Puerto donde escuchar
 const PORT = "1337"
@@ -48,7 +36,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.Handle("/resources", noDirListing(http.FileServer(http.Dir("./resources"))))
+  http.Handle("/resources/", http.StripPrefix("/resources/", http.FileServer(http.Dir("resources"))))
 	http.HandleFunc("/", RootHandler)
 	http.HandleFunc("/md5/", Md5Handler)
 	http.HandleFunc("/sha3256/", Sha3Handler)
