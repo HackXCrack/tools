@@ -19,6 +19,11 @@ fi
 
 cd src
 go fmt
+go vet
 if [ $(which golint) = "golint not found" ]; then
   echo "Instala golint :D"
+else
+  golint -min_confidence=1.0
 fi
+
+
