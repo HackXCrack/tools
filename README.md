@@ -5,14 +5,8 @@ Herramientas varias nivel web en golang
 ## Clone the project
 git clone https://github.com/HackXCrack/tools.git
 
-## Compilar el css
-cd /path-to-project/
-cd resources
-sass --watch style.scss:style.css --style compressed
-
 ## Build the project
-cd ..
-go build
+sys/build.sh
 
 ## Launch
 ./tools
