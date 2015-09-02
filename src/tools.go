@@ -14,7 +14,6 @@ const PORT = "1337"
 type Page struct {
 	Title   string
 	Request string
-	Body    []byte
 }
 
 const templatesPath = "./templates/"
