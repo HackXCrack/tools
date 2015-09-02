@@ -5,6 +5,10 @@ Herramientas varias nivel web en golang
 ## Clone the project
 git clone https://github.com/HackXCrack/tools.git
 
+## Install dependencies
+
+(For APT) sudo apt-get install golang ruby-full rubygems1.8 && sudo gem install sass
+
 ## Build the project
 sys/build.sh
 
