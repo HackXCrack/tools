@@ -1,5 +1,28 @@
 header{
-	background-color: green
+	background-color: #585858
+}
+
+header a {
+  color: #F78181;
+}
+
+body {
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    font-family: Century Gothic, sans-serif;
+}
+
+ul {
+  color: #FFFF00;
+  list-style-type: none;
+}
+
+ul a {
+    color: #FA5858
+}
+
+ul a:hover {
+    color: #FF0000;
 }
 
 footer{
