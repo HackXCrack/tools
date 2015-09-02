@@ -52,7 +52,6 @@ func main() {
 
 	s := &http.Server{
 		Addr:        ":" + PORT,
-		Handler:     http.DefaultServeMux,
 		ReadTimeout: 7 * time.Second,
 	}
 	err := s.ListenAndServe()
