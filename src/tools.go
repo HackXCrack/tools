@@ -21,8 +21,18 @@ const templatesPath = "./templates/"
 var templates = template.Must(template.ParseGlob(templatesPath + "[a-z]*"))
 
 //RenderTemplate renderiza la template con el texto adecuado
-func RenderTemplate(w http.ResponseWriter, tmpl string, t string, r string) {
-	err := templates.ExecuteTemplate(w, tmpl, &Page{Title: t, Request: r})
+func RenderTemplate(w http.ResponseWriter, tmpl string, title string, r interface{}) {
+	var err error
+	switch request := r.(type) {
+	case string:
+		err = templates.ExecuteTemplate(w, tmpl, &Page{title, request})
+	case error:
+		//TODO: Si es un error se imprima en otro formato
+		err = templates.ExecuteTemplate(w, tmpl, &Page{title, request.Error()})
+	default:
+		log.Print("Strange error ocurred")
+	}
+
 	if err != nil {
 		log.Print("ExecuteTemplate: ", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -51,8 +61,9 @@ func main() {
 	log.Print("Escuchando en el puerto " + PORT)
 
 	s := &http.Server{
-		Addr:        ":" + PORT,
-		ReadTimeout: 7 * time.Second,
+		Addr:         ":" + PORT,
+		ReadTimeout:  7 * time.Second,
+		WriteTimeout: 7 * time.Second,
 	}
 	err := s.ListenAndServe()
 	if err != nil {

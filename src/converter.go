@@ -19,7 +19,7 @@ func DecodeHex(w http.ResponseWriter, request string) {
 
 	hash, err := hex.DecodeString(request)
 	if err != nil {
-		//fmt.Println("error:", err)
+		RenderTemplate(w, "tool", "Hex decoder", err)
 		return
 	}
 	RenderTemplate(w, "tool", "Hex decoder", string(hash))
@@ -92,7 +92,7 @@ func DecodeBase64(w http.ResponseWriter, request string) {
 	}
 	hash, err := base64.StdEncoding.DecodeString(request)
 	if err != nil {
-		//se debería mostrar el error al user???
+		RenderTemplate(w, "tool", "Base64 decoder", err)
 		return
 	}
 	RenderTemplate(w, "tool", "Base64 decoder", string(hash))
@@ -102,7 +102,6 @@ func DecodeBase64(w http.ResponseWriter, request string) {
 func RawDecodeBase64(w http.ResponseWriter, request string) {
 	hash, err := base64.StdEncoding.DecodeString(request)
 	if err != nil {
-		//se debería mostrar el error al user???
 		return
 	}
 	fmt.Fprint(w, string(hash))
