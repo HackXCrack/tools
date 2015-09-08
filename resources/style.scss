@@ -1,7 +1,19 @@
 @import 'reset';
+@import 'mixins';
+@import 'colors';
+
+body {
+	font-family: Century Gothic, sans-serif;
+	color: #F2F2F2;
+	background-color: $background_page;
+}
+
+a {
+	text-decoration: none;
+}
 
 header{
-	background-color: #585858
+	@include hf(5em, $background_hf)
 }
 
 header {
@@ -10,13 +22,7 @@ header {
 	}
 }
 
-body {
-	background-color: #1C1C1C;
-	color: #F2F2F2;
-	font-family: Century Gothic, sans-serif;
-}
-
-ul {
+nav ul {
 	color: #FFFF00;
 	list-style-type: none;
 	
@@ -30,8 +36,14 @@ ul {
 
 }
 
+input {
+	margin: 2em auto;
+	display: block;
+	border: none;
+}
+
 footer{
-  bottom: 0;
-  height: 3%;
-  position: absolute
+	@include hf(3em, $background_hf);
+	bottom: 0;
+	position: absolute;
 }
