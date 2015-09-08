@@ -1,0 +1,6 @@
+@mixin hf($height ,$background) {
+	height: $height;
+	width: 100%;
+	text-align: center;
+	background-color: $background;
+}
